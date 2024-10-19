@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+  <div class="page-header">
+    <h4 class="page-title">{% if form.instance.pk %}Update User{% else %}New User{% endif %}</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="{% url 'home' %}"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'users' %}">Users</a>
+      </li>
+      <li class="separator">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <a href="{% if form.instance.pk %}{% url 'user_update' form.instance.pk %}{% else %}{% url 'new_user' %}{% endif %}">
+          {% if form.instance.pk %}Update{% else %}Create New{% endif %}
+        </a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">{% if form.instance.pk %}Update User{% else %}Create New User{% endif %}</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST" enctype="multipart/form-data" action="{% if form.instance.pk %}{% url 'user_update' form.instance.pk %}{% else %}{% url 'new_user' %}{% endif %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form.first_name.value }}" placeholder="Enter first name" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form.last_name.value }}" placeholder="Enter last name" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" value="{{ form.username.value }}" placeholder="Enter username" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}" placeholder="Enter email" required />
+            </div>
+          </div>        
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select class="form-control" id="role" name="role" required>
+                <option value="employee" {% if form.instance.role == 'employee' %}selected{% endif %}>Employee</option>
+                <option value="hr" {% if form.instance.role == 'hr' %}selected{% endif %}>HR</option>
+                <option value="manager" {% if form.instance.role == 'manager' %}selected{% endif %}>Manager</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" value="{{ form.password.value }}" placeholder="Enter password" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="image">Profile Image</label>
+              <input type="file" class="form-control" id="image" name="image" />
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update User{% else %}Save User{% endif %}</button>
+          <a href="{% url 'users' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

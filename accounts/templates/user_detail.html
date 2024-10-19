@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}
+  <div class="page-header">
+    <h4 class="page-title">User</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="{% url 'home' %}"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'users' %}">Users</a>
+      </li>
+      <li class="separator">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <span>Detail</span>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="card">
+    <div class="row">
+      <!-- Profile Image Section -->
+      <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+          <img class="rounded-circle mt-5"
+            width="150px"
+            src="{% if object.profile_image %}
+              {{ object.profile_image.url }}
+            {% else %}
+              {% static 'assets/img/profile.png' %}
+            {% endif %}
+                        " />
+          <span class="font-weight-bold">{{ object.first_name }}</span>
+          <span class="text-black-50">{{ object.email }}</span>
+        </div>
+      </div>
+
+      <!-- Profile Details Section -->
+      <div class="col-md-5 border-right">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="text-right">Profile Details</h4>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="labels">First Name</label>
+              <p class="form-control-static">{{ object.first_name|default:"Unspecified" }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="labels">Last Name</label>
+              <p class="form-control-static">{{ object.last_name|default:"Unspecified" }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="labels">Username</label>
+              <p class="form-control-static">{{ object.username|default:"Unspecified" }}</p>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label class="labels">Phone Number</label>
+              <p class="form-control-static">{{ object.phone_number|default:"Unspecified" }}</p>
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Email</label>
+              <p class="form-control-static">{{ object.email|default:"Unspecified" }}</p>
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Date of Birth</label>
+              <p class="form-control-static">{{ object.date_of_birth|default:"Unspecified" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+/* Profile Image Section */
+.text-center img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.d-flex.flex-column.align-items-center.text-center {
+    padding-top: 20px; /* Reduced padding */
+}
+
+.font-weight-bold {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.text-black-50 {
+    color: #6c757d;
+}
+
+/* Profile Form Styling */
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #fdfdfd;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect for Form Inputs */
+.form-control:hover {
+    background-color: #f1f1f1;
+    border-color: #007bff;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.labels {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Reduced margin between input fields */
+.mt-2 .col-md-6,
+.mt-3 .col-md-12 {
+    margin-bottom: 10px; /* Reduced space between fields */
+}
+
+/* Button Styling */
+.profile-button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Hover Effect for Button */
+.profile-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* Button Positioning */
+.mt-4.text-center {
+    margin-top: 20px; /* Reduced margin above button */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .border-right {
+        border-right: none;
+    }
+
+    .col-md-3, .col-md-5 {
+        max-width: 100%;
+        flex: none;
+        padding: 0;
+    }
+
+    .container {
+        margin: 5px; /* Further reduced margins on mobile */
+    }
+
+    .p-3.py-5 {
+        padding: 15px;
+    }
+}

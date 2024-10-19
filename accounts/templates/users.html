@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+{% endblock %}
+
+{% block breadcrumb %}
+  <div class="page-header">
+    <h4 class="page-title">Users</h4>
+    <ul class="breadcrumbs">
+      <li class="nav-home">
+        <a href="{% url 'home' %}"><i class="icon-home"></i></a>
+      </li>
+      <li class="separator">
+        <i class="icon-arrow-right"></i>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'users' %}">Users</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title" style="letter-spacing: 5px;">Users</h4>
+          <a href="{% url 'new_user' %}" class="btn btn-primary btn-round ms-auto">
+            <i class="fas fa-plus me-2"></i>
+            New
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="add-row" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Days Taken</th>
+                <th>Days Left</th>
+                <th style="width: 10%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user_obj in users %}
+                <tr>
+                  <td class="d-flex gap-2 align-items-center">
+                    <div>
+                      {% if user_obj.image %}
+                        <img src="{{ user_obj.image.url }}" alt="Employee Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" />
+                      {% else %}
+                        <img src="{% static 'assets/img/profile.png' %}" alt="Placeholder Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" />
+                      {% endif %}
+                    </div>
+                    <div>
+                      <span>{{ user_obj.first_name }} {{ user_obj.last_name }}</span><br />
+                      <small class="text-muted">{{ user_obj.username }}</small>
+                    </div>
+                  </td>
+                  <td>{{ user_obj.email }}</td>
+                  <td>
+                    {% if user_obj.is_staff %}
+                      Manager
+                    {% elif user_obj.is_hr %}
+                      HR
+                    {% else %}
+                     Employee
+                    {% endif %}
+                  </td>
+                  <td>{{ user_obj.days_taken|default:0 }}</td>
+                  <td>{{ user_obj.days_left|default:0 }}</td>
+                  <td>
+                    <div class="d-flex">
+                      <a href="{% url 'user_detail' user_obj.id %}" class="btn btn-success btn-sm me-2"><i class="fas fa-eye"></i></a>
+                   
+                      {% if  user.is_staff%}
+                      <a href="{% url 'user_update' user.id %}" class="btn btn-primary btn-sm me-2"><i class="fas fa-edit"></i></a>
+                      <a  href="{% url 'user_delete' user.id %}"  class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                      {% elif  user.is_hr%}
+                      <a href="{% url 'user_update' user.id %}" class="btn btn-primary btn-sm me-2"><i class="fas fa-edit"></i></a>
+                      {% endif %}
+                    
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#add-row').DataTable({
+        pageLength: 5,
+        language: {
+          paginate: {
+            previous: '<i class="fas fa-chevron-left"></i>',
+            next: '<i class="fas fa-chevron-right"></i>'
+          }
+        }
+      })
+    })
+  </script>
+{% endblock %}
